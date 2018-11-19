@@ -15,7 +15,7 @@ HashTable.prototype.insert = function(k, v) {
   newItem[k] = v;
   newItem['next'] = null;
 
-  function findUndefined(store, key, input) {
+  function findNull(store, key, input) {
     if(store[key]) {
       return store[key] = input[key];
     }
@@ -26,12 +26,12 @@ HashTable.prototype.insert = function(k, v) {
       }
       return store['next'] = input;
     }
-    return findUndefined(store['next'], key, input);
+    return findNull(store['next'], key, input);
   }
 
-  findUndefined = findUndefined.bind(this);
+  findNull = findNull.bind(this);
   if(storageCheck) {
-    return findUndefined(storageCheck, k, newItem);
+    return findNull(storageCheck, k, newItem);
   } else {
     this.insertCount++;
     if(this.insertCount === this._limit - 1) {
@@ -67,7 +67,7 @@ HashTable.prototype.remove = function(k) {
   var index = getIndexBelowMaxForKey(k, this._limit);
   var dataStorage = this._storage.get(index);
 
-  function changeNext(store, key ) {
+  function changeNext(store, key) {
     if(store['next'][key]) {
       store['next'] = store['next']['next'];
     } else {

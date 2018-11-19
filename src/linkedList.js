@@ -8,11 +8,11 @@ var LinkedList = function() {
   list.tail = new Node();
 
   list.addToTail = function(value) {
-    function findNull(x, input) {
-      if(x.next === null) {
-        return x.next = input;
+    function findNull(item, input) {
+      if(item.next === null) {
+        return item.next = input;
       }
-      return findNull(x.next, input);
+      return findNull(item.next, input);
     }
 
     if(!list.head.value) {
@@ -34,14 +34,14 @@ var LinkedList = function() {
   };
 
   list.contains = function(target) {
-    function findValue(x, value) {
-      if(x.value === value) {
+    function findValue(item, value) {
+      if(item.value === value) {
         return true;
       } else {
-        if(x.next === null) {
+        if(item.next === null) {
           return false
         } else {
-          return findValue(x.next, target);
+          return findValue(item.next, target);
         }
       }
     }
