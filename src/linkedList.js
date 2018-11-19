@@ -45,6 +45,7 @@ var LinkedList = function() {
         }
       }
     }
+    
     return findValue(list.head, target);
   };
 
