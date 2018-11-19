@@ -15,7 +15,6 @@ HashTable.prototype.insert = function(k, v) {
   newItem[k] = v;
   newItem['next'] = undefined;
 
-
   function findNull(store, key, input) {
     if(store[key]) {
       return store[key] = input[key];
