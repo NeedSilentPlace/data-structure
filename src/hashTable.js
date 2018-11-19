@@ -13,25 +13,25 @@ HashTable.prototype.insert = function(k, v) {
   var storageCheck = this._storage.get(index);
   var newItem = {};
   newItem[k] = v;
-  newItem['next'] = undefined;
+  newItem['next'] = null;
 
-  function findNull(store, key, input) {
+  function findUndefined(store, key, input) {
     if(store[key]) {
       return store[key] = input[key];
     }
-    if(store['next'] === undefined) {
+    if(!store['next']) {
       this.insertCount++;
       if(this.insertCount === this._limit - 1) {
         this._limit *= 2;
       }
       return store['next'] = input;
     }
-    return findNull(store['next'], key, input);
+    return findUndefined(store['next'], key, input);
   }
 
-  findNull = findNull.bind(this);
+  findUndefined = findUndefined.bind(this);
   if(storageCheck) {
-    return findNull(storageCheck, k, newItem);
+    return findUndefined(storageCheck, k, newItem);
   } else {
     this.insertCount++;
     if(this.insertCount === this._limit - 1) {

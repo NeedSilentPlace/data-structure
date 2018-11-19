@@ -8,8 +8,8 @@ var LinkedList = function() {
   list.tail = new Node();
 
   list.addToTail = function(value) {
-    function findNull(x, input){
-      if(x.next === null){
+    function findNull(x, input) {
+      if(x.next === null) {
         return x.next = input;
       }
       return findNull(x.next, input);
@@ -42,8 +42,8 @@ var LinkedList = function() {
           return false
         } else {
           return findValue(x.next, target);
-          }
         }
+      }
     }
     return findValue(list.head, target);
   };
