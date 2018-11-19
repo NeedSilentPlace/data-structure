@@ -9,7 +9,7 @@ var LinkedList = function() {
 
   list.addToTail = function(value) {
     function findNull(item, input) {
-      if(item.next === null) {
+      if(!item.next) {
         return item.next = input;
       }
       return findNull(item.next, input);
@@ -27,10 +27,10 @@ var LinkedList = function() {
   };
 
   list.removeHead = function() {
-    var k = list.head.value;
+    var removedValue = list.head.value;
     list.head = list.head.next;
 
-    return k;
+    return removedValue;
   };
 
   list.contains = function(target) {
@@ -38,7 +38,7 @@ var LinkedList = function() {
       if(item.value === value) {
         return true;
       } else {
-        if(item.next === null) {
+        if(!item.next) {
           return false
         } else {
           return findValue(item.next, target);

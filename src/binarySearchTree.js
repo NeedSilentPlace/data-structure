@@ -52,10 +52,10 @@ var BinarySearchTree = function(value) {
       callback(this.value);
     }
     if(this.left) {
-      return this.left.depthFirstLog(callback);
+      this.left.depthFirstLog(callback);
     }
     if(this.right) {
-      return this.right.depthFirstLog(callback);
+      this.right.depthFirstLog(callback);
     }
   };
 
