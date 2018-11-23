@@ -13,25 +13,24 @@ HashTable.prototype.insert = function(k, v) {
   var storageCheck = this._storage.get(index);
   var newItem = {};
   newItem[k] = v;
-  newItem['next'] = null;
+  newItem.next = null;
 
-  function findNull(store, key, input) {
+  function findNull(store, key, input, original) {
     if(store[key]) {
       return store[key] = input[key];
     }
-    if(!store['next']) {
-      this.insertCount++;
-      if(this.insertCount === this._limit - 1) {
-        this._limit *= 2;
+    if(!store.next) {
+      original.insertCount++;
+      if(original.insertCount === original._limit - 1) {
+        original._limit *= 2;
       }
-      return store['next'] = input;
+      return store.next = input;
     }
-    return findNull(store['next'], key, input);
+    return findNull(store.next, key, input, original);
   }
 
-  findNull = findNull.bind(this);
   if(storageCheck) {
-    return findNull(storageCheck, k, newItem);
+    return findNull(storageCheck, k, newItem, this);
   } else {
     this.insertCount++;
     if(this.insertCount === this._limit - 1) {
@@ -49,7 +48,7 @@ HashTable.prototype.retrieve = function(k) {
     if(store[key]) {
       return store[key];
     }
-    return findKey(store['next'], key);
+    return findKey(store.next, key);
   }
 
   if(dataStorage) {
@@ -68,10 +67,10 @@ HashTable.prototype.remove = function(k) {
   var dataStorage = this._storage.get(index);
 
   function changeNext(store, key) {
-    if(store['next'][key]) {
-      store['next'] = store['next']['next'];
+    if(store.next[key]) {
+      store.next = store.next.next;
     } else {
-      return changeNext(store['next']['next'], key);
+      return changeNext(store.next.next, key);
     }
   }
 
@@ -80,8 +79,8 @@ HashTable.prototype.remove = function(k) {
     if(this._limit !== 8 && this.insertCount < this._limit / 2) {
       this._limit /= 2;
     }
-    if(dataStorage['next']) {
-      return dataStorage = dataStorage['next'];
+    if(dataStorage.next) {
+      return dataStorage = dataStorage.next;
     } else {
       return this._storage.set(index, undefined);
     }
